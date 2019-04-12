@@ -14,4 +14,8 @@ func main()  {
 		fmt.Println(arg, s)
 	}
 
+	for i, v := range os.Args {
+		fmt.Println(i, v)
+	}
+
 }
