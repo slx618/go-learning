@@ -3,8 +3,7 @@ package main
 import "fmt"
 
 type myStru struct {
-	x int
-	y int
+	x, y int
 }
 
 func main()  {
