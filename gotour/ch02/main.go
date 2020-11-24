@@ -3,6 +3,16 @@ import "fmt"
 import "strconv" 
 import "strings" 
 
+type address struct {
+	province string
+	city string
+}
+type person struct {
+	name string
+	age uint
+	addr address
+}
+
 func main() {
     var f32 float32 = 2.2
     var f64 float64 = 10.3456
@@ -51,4 +61,25 @@ func main() {
 	fmt.Println(strings.HasPrefix(s1, "H"))
 	fmt.Println(strings.Index(s1, "o"))
 	fmt.Println(strings.ToUpper(s1))
+
+
+
+
+
+	mingAddr := address{"jiangxi", "fuzhou"}
+	xiaoming := person{"小明", 18, mingAddr}
+
+	fmt.Println(xiaoming.name, xiaoming.age)
+
+	fmt.Println(xiaoming)
+
+	//printString(xiaoming)
+
 }
+
+func (p person) String() string {
+	return fmt.Sprintf("the name is %s,age is %d",p.name,p.age)
+
+}
+
+
