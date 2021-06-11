@@ -4,6 +4,7 @@ import (
 	"fmt"
 )
 
+// 函数外只能写关键字开头的语句
 var (
 	i int
 	f float64

@@ -6,12 +6,13 @@ import "fmt"
 //var age int
 
 //全局 批量声明 声明了可以不使用
-
 var (
 	name string // ""
 	age  int    // 0
 	isOk bool   // false
 )
+
+var myName = "Alex"
 
 func main() {
 	name = "slx618"
@@ -24,6 +25,7 @@ func main() {
 	fmt.Printf("name: %s, age: %d, isOk: %v", name, age, isOk)
 
 	fmt.Println()
+	fmt.Println(myName)
 
 	// 声明变量同时赋值
 	var s1 string = "王尼玛"
@@ -37,7 +39,7 @@ func main() {
 	s3 := "王大丫"
 	fmt.Println(s3)
 
-	// 匿名变量 _
+	// 匿名变量 (哑元变量) _
 
 	// 变量不能重复声明
 
