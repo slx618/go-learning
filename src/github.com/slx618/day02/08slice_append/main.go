@@ -20,4 +20,12 @@ func main() {
 	s1 = append(s1, ss...)
 	fmt.Printf("s1=%v len=%d cap=%d\n", s1, len(s1), cap(s1))
 
+	//append 删除
+	a1 := []int{1, 2, 3, 4, 5, 6}
+	fmt.Println(a1)
+
+	ss1 := a1[:]
+	ss1 = append(ss1[:1], ss1[5:]...)
+	fmt.Println(ss1, a1)
+
 }
