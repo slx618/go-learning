@@ -1,4 +1,4 @@
-package main
+package main //包名
 
 import "fmt"
 
