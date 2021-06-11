@@ -15,17 +15,32 @@ func main() {
 
 	fmt.Printf("%T,%T,%T,%T\n", i, f, b, s)
 	s := "123中文"
-	i := 0
-	fmt.Println(i)
+	fmt.Printf("有%d个中文\n", check(s))
 
-	for _, v := range s {
-		fmt.Printf("%T\n", v)
-		//fmt.Println(n)
-		//if n  > 10000 {
-		//	i += 1
-		//}
+	chenfa()
+
+}
+
+func chenfa() {
+
+	for y := 1; y <= 9; y++ {
+		for x := 1; x <= 9; x++ {
+			if x == y {
+				fmt.Printf("%vx%v=%v\n", y, x, x*y)
+				break
+			}
+			fmt.Printf("%vx%v=%v ", y, x, x*y)
+		}
 	}
 
-	fmt.Println(i)
+}
 
+func check(s string) int {
+	i := 0
+	for _, v := range s {
+		if v > 10000 {
+			i += 1
+		}
+	}
+	return i
 }
