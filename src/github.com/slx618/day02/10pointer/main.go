@@ -20,6 +20,7 @@ func main() {
 	var a = new(int)
 	fmt.Println(a)
 	fmt.Println(*a)
+	fmt.Println(*a)
 
 	*a = 100
 	fmt.Println(a)
