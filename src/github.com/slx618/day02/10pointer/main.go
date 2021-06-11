@@ -13,14 +13,17 @@ func main() {
 	fmt.Println(addr)
 	fmt.Println(*addr)
 
-	//var a *int //nil
+	//var a *int nil
 	//*a = 100
 
-	// new 函数申请一个内存地址
+	// new 函数申请一个内存地址 int string 类型的指针
 	var a = new(int)
 	fmt.Println(a)
 	fmt.Println(*a)
 	fmt.Println(*a)
+	var s = new(string)
+	fmt.Println("&s:", s)
+	fmt.Println("*s:", *s)
 
 	*a = 100
 	fmt.Println(a)
