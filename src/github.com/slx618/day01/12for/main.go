@@ -27,6 +27,7 @@ func main() {
 
 	//for range
 	s := "wo w我是字符串"
+	fmt.Println(len(s))
 	for k, v := range s {
 		fmt.Printf("%d %c\n", k, v)
 	}
