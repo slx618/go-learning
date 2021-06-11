@@ -15,7 +15,7 @@ import (
 
 //字节 1 字节 = 1 byte = 8 bit 八个二进制
 //1 个字符 'A' = 1个字节
-// 1个 utf8 编码的汉字 一般三个字节
+// 1个 utf8 编码的汉字 一般三个字节 默认 UTF8
 func main() {
 	fmt.Println("\\\"")
 

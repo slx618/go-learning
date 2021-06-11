@@ -2,7 +2,24 @@ package main
 
 import "fmt"
 
+var (
+	ui   uint
+	ui8  uint8
+	u16  uint16
+	ui32 uint32
+	ui64 uint64
+
+	i   int
+	i8  int8
+	i16 int16
+	i32 int32
+	i64 int64
+
+	uptr uintptr // 表示指针
+)
+
 func main() {
+
 	var i1 = 10
 	fmt.Printf("%d\n", i1)
 	fmt.Printf("%b\n", i1) //把十进制转化成二进制
@@ -10,11 +27,11 @@ func main() {
 	fmt.Printf("%x\n", i1) //把十进制转化成十六进制
 
 	//八进制
-	var i2 = 077
+	var i2 = 0777
 	fmt.Printf("%d\n", i2)
 
 	//十六进制
-	i3 := 0xf
+	i3 := 0xff
 	fmt.Printf("%d\n", i3)
 	//查看变量的类型
 	fmt.Printf("%T\n", i3)

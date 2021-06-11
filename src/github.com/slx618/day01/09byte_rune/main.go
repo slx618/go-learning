@@ -4,7 +4,7 @@ import "fmt"
 
 func main() {
 
-	//中文字符 rune 英文字符 byte
+	//中文字符 rune 英文字符 byte 属于类型别名
 	s1 := "123abc我是小米"
 
 	//for i := 0; i < len(s1); i++ {
