@@ -12,4 +12,19 @@ func main() {
 	fmt.Printf("%T\n", addr)
 	fmt.Println(addr)
 	fmt.Println(*addr)
+
+	//var a *int //nil
+	//*a = 100
+
+	// new 函数申请一个内存地址
+	var a = new(int)
+	fmt.Println(a)
+	fmt.Println(*a)
+
+	*a = 100
+	fmt.Println(a)
+	fmt.Println(*a)
+
+	//make 分配内存 slice  map chan 返回这三种本身
+
 }
