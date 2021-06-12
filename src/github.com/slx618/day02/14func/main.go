@@ -56,4 +56,15 @@ func main() {
 	fmt.Println(n)
 
 	f7("xxxx", 1, 2, 3, 4, 5, 5)
+
+	x := [3]int{1, 2, 3}
+	fmt.Println(x)
+	ff(x)
+	fmt.Println(x)
+}
+
+//
+func ff(a [3]int) {
+	//go 语言中的函数值传递 都是值传递
+	a[1] = 100
 }

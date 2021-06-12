@@ -16,8 +16,7 @@ func countWords(s string) {
 
 	var m1 = make(map[string]int, len(strSlice))
 	for _, v := range strSlice {
-		_, ok := m1[v]
-		if ok {
+		if _, ok := m1[v]; ok {
 			m1[v]++
 		} else {
 			m1[v] = 1

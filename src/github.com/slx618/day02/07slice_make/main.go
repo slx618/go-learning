@@ -5,6 +5,7 @@ import "fmt"
 func main() {
 
 	//类型 长度 容量
+	//切片包含 三要素: 1. 切片框住的第一个值的地址 1. 数组长度 3, 容量
 	s1 := make([]int, 5, 10)
 	fmt.Printf("s1=%v, len=%d cap=%d\n", s1, len(s1), cap(s1))
 

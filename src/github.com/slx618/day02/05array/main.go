@@ -38,14 +38,15 @@ func main() {
 	}
 
 	// 多维数组
+	//d多维数组只有外层能加 [...]
 	var arr5 [2][5]int
 	arr5 = [2][5]int{
-		[5]int{2, 2, 3, 5, 8},
+		[5]int{2, 2, 3, 8},
 		[5]int{333, 323, 32, 3, 2},
 	}
 	arr5[0][4] = 123
 
-	fmt.Println(arr5)
+	fmt.Println("arr5:", arr5)
 	for _, v := range arr5 {
 		for _, vv := range v {
 			fmt.Println(vv)

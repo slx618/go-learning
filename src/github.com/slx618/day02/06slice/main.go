@@ -1,11 +1,17 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+)
 
 //切片 slice
-
+//扩容策略
+//如果申请的容量大于原来的两倍 直接扩容至新申请的容量
+//如果小于1024 直接两倍
+//如果大于1024 每次增加四分之一
+//具体存储的值类型不同 扩容策略也有一定的不同
 func main() {
-	var s1 []int //定义一个存放 int 类型的切片 未初始化
+	var s1 []int //定义一个存放 int 类型的切片 没有分配内存 未初始化
 
 	var s2 []string
 
@@ -29,6 +35,7 @@ func main() {
 	// 由数组得到切片
 
 	a1 := [11]int{1, 9, 2, 32, 32, 32, 3, 21, 2, 13, 1}
+	fmt.Printf("a1:%T\n", a1)
 
 	// 左包含右不包含
 	s3 := a1[0:4]
@@ -41,7 +48,7 @@ func main() {
 	fmt.Println(s5)
 
 	s6 := a1[5:6]
-	fmt.Println(s6)
+	fmt.Printf("s6:%v %T\n", s6, s6)
 
 	s7 := a1[:]
 	fmt.Println("s7:", s7)
