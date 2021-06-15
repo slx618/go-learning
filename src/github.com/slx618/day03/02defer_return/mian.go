@@ -14,6 +14,8 @@ func main() {
 	fmt.Println(f2())
 	fmt.Println(f3())
 	fmt.Println(f4())
+	fmt.Println(f5())
+	fmt.Println(f6())
 }
 
 func f1() int {
@@ -49,5 +51,21 @@ func f4() (x int) {
 		x++
 	}(x)
 
+	return 5
+}
+
+func f5() (x int) {
+	defer func(x int) int {
+		x++
+		return x
+	}(x)
+
+	return 5
+}
+
+func f6() (x int) {
+	defer func(x *int) {
+		(*x)++
+	}(&x)
 	return 5
 }
