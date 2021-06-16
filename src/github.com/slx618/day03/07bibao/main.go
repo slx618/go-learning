@@ -16,5 +16,7 @@ func makeSuffixFunc(suffix string) func(string) string {
 
 func main() {
 	jpgFunc := makeSuffixFunc("jpg")
+	pngFunc := makeSuffixFunc("png")
 	fmt.Println(jpgFunc("xxxx"))
+	fmt.Println(pngFunc("xxxx"))
 }

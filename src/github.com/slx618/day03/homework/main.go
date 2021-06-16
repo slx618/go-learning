@@ -17,14 +17,25 @@ func main() {
 	var used int
 	for _, name := range users {
 		for _, letter := range name {
-			switch string(letter) {
-			case "e", "E":
+			//letter 是字符 []rune int32
+			//switch string(letter) {
+			//case "e", "E":
+			//	addCoin(distribution, name, 1, &used)
+			//case "i", "I":
+			//	addCoin(distribution, name, 2, &used)
+			//case "o", "O":
+			//	addCoin(distribution, name, 3, &used)
+			//case "u", "U":
+			//	addCoin(distribution, name, 4, &used)
+			//
+			switch letter {
+			case 'e', 'E':
 				addCoin(distribution, name, 1, &used)
-			case "i", "I":
+			case 'i', 'I':
 				addCoin(distribution, name, 2, &used)
-			case "o", "O":
+			case 'o', 'O':
 				addCoin(distribution, name, 3, &used)
-			case "u", "U":
+			case 'u', 'U':
 				addCoin(distribution, name, 4, &used)
 
 			}

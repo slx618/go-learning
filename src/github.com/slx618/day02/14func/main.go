@@ -44,7 +44,7 @@ func f6(x, y int, m, n string, i, j bool) int {
 //可变必须放在最后
 func f7(x string, y ...int) {
 	fmt.Println(x)
-	fmt.Println(y)
+	fmt.Printf("是什么类型呢: %T\n", y)
 }
 
 // go中没有默认参数这个概念
