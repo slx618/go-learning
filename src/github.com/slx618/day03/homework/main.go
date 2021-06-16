@@ -15,17 +15,17 @@ func main() {
 	//分金币
 
 	var used int
-	for _, v := range users {
-		for _, vv := range v {
-			switch string(vv) {
+	for _, name := range users {
+		for _, letter := range name {
+			switch string(letter) {
 			case "e", "E":
-				addCoin(distribution, v, 1, &used)
+				addCoin(distribution, name, 1, &used)
 			case "i", "I":
-				addCoin(distribution, v, 2, &used)
+				addCoin(distribution, name, 2, &used)
 			case "o", "O":
-				addCoin(distribution, v, 3, &used)
+				addCoin(distribution, name, 3, &used)
 			case "u", "U":
-				addCoin(distribution, v, 4, &used)
+				addCoin(distribution, name, 4, &used)
 
 			}
 
