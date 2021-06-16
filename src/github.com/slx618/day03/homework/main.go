@@ -5,7 +5,7 @@ import "fmt"
 var (
 	coins = 100
 	users = []string{
-		"Mettew", "Sarah", "Augustus", "Heidi", "Elizabeth",
+		"Matthew", "Sarah", "Augustus", "Heidi", "Elizabeth",
 		"Emilie", "Peter", "Giana", "Adriano", "Araon",
 	}
 	distribution = make(map[string]int, len(users))
