@@ -22,6 +22,7 @@ func main() {
 	s3 := []rune(s2) //[白 萝 卜] 转换成 rune 切片
 	//s3[0] = "红"
 	s3[0] = '红'
+	//转成字符串
 	fmt.Println(string(s3))
 
 	fmt.Printf("%T %T\n", s2, s3[0])

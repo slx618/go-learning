@@ -31,6 +31,11 @@ func main() {
 
 	// 字符串拼接
 	name := "小米"
+	//len 计算字节的长度 所以小米的长度是 6
+	//英文和数字的长度是 1
+	fmt.Println("len:", len(name))
+	fmt.Println("len:", len("123"))
+	fmt.Println("len:", len("ww"))
 	make := "煮水"
 	ss := name + make
 	fmt.Println(ss)
