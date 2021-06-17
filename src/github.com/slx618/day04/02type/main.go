@@ -5,7 +5,7 @@ import "fmt"
 // 自定义类型
 type myInt int
 
-// 类型别名
+// 类型别名  打印显示还是int
 type youInt = int
 
 func main() {

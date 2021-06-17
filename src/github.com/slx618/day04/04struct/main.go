@@ -42,7 +42,7 @@ func main() {
 	fmt.Printf("%p\n", &p2) // p2 的内存地址
 
 	// 结构体指针 2
-	var p3 = person{
+	var p3 = &person{
 		name: "元素",
 		age:  18,
 	}
@@ -50,7 +50,7 @@ func main() {
 	fmt.Printf("%#v", p3)
 
 	// 结构体 key - value 初始化 值要一一对应 并且个数不能少
-	var p4 = person{
+	p4 := &person{ // person 类型的指针
 		"名字",
 		"男",
 		18,
