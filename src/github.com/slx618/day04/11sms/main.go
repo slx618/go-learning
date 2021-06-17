@@ -39,19 +39,17 @@ func addStu() {
 		id   int64
 		name string
 	)
+checkId:
 	fmt.Print("请输入学号:")
 	fmt.Scan(&id)
-	fmt.Print("请输入姓名:")
-	fmt.Scan(&name)
-	//addMark: addStu()
-
 	for k := range allStu {
 		if k == id {
 			fmt.Println("学号已存在")
-			//goto addMark
+			goto checkId
 		}
 	}
-
+	fmt.Print("请输入姓名:")
+	fmt.Scan(&name)
 	s := newStudent(id, name)
 	allStu[id] = &s
 	fmt.Println("添加成功")
@@ -74,8 +72,7 @@ func main() {
 		1. 查看学生
 		2. 新增学生
 		3. 删除学生
-		4. 退出
-`)
+		4. 退出`)
 		fmt.Print("请输入:")
 		var ch int
 		fmt.Scanln(&ch)
