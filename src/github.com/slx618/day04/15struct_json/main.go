@@ -9,6 +9,7 @@ import (
 
 //结构体和 json 互相转换
 
+//字段要大写 否则 json 包访问不到
 type person struct {
 	Name string `json:"name" db:"name" ini:"name"` //tag
 	Age  int    `json:"age"`
