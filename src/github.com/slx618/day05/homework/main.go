@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"github.com/slx618/day05/logger"
 	"io"
 	"os"
 	"strings"
@@ -49,5 +50,7 @@ func copyFile(target string) {
 }
 
 func main() {
-	copyFile("./main.go")
+	//copyFile("./main.go")
+
+	logger.Debug()
 }
