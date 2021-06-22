@@ -6,13 +6,13 @@ import (
 	"os"
 )
 
+//找到main.txt 在第一个字和第二个字中间插入一个 b
 func main() {
 
 	h, err := os.Open("./main.txt")
 	if err != nil {
 		fmt.Println(err)
 	}
-	defer h.Close()
 
 	var header [1]byte
 	_, err = h.Read(header[:])
@@ -23,7 +23,6 @@ func main() {
 	if err != nil {
 		fmt.Println(err)
 	}
-	defer handle.Close()
 
 	var end [128]byte
 	handle.Write(header[:])
@@ -43,5 +42,11 @@ func main() {
 		handle.Write(end[:])
 
 	}
+	handle.Close()
+	h.Close()
+	err = os.Remove("./main.txt")
+	fmt.Println(err)
+	err = os.Rename("./new.txt", "./main.txt")
+	fmt.Println(err)
 
 }
