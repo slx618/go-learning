@@ -52,5 +52,12 @@ func copyFile(target string) {
 func main() {
 	//copyFile("./main.go")
 
-	logger.Debug()
+	log := logger.NewLogger("xx.log")
+	log.Debug("ssss")
+
+	m1 := make(map[string]interface{}, 20)
+	m1["sdsa"] = []string{"232", "323232"}
+	m1["sdf"] = []interface{}{1212, "12342", []int{1323, 3, 2, 32, 3, 2, 32, 222}}
+	log.Info(m1)
+
 }
