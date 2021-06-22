@@ -14,23 +14,24 @@ func main() {
 	}
 	defer h.Close()
 
-	var header []byte
-	_, err = h.Read(header[:1])
+	var header [1]byte
+	_, err = h.Read(header[:])
 	if err != nil {
 		fmt.Println(err)
 	}
-	var end []byte
-	handle, err := os.OpenFile("./new.txt", os.O_RDWR, 0644)
+	handle, err := os.OpenFile("./new.txt", os.O_RDWR|os.O_CREATE, 0644)
 	if err != nil {
 		fmt.Println(err)
 	}
 	defer handle.Close()
 
-	handle.Write(header)
+	var end [128]byte
+	handle.Write(header[:])
 	handle.Write([]byte{'b'})
-
+	//跳过第一个字节
+	h.Seek(1, 0)
 	for {
-		n, err := h.Read(end[1:n])
+		_, err := h.Read(end[:])
 
 		if err == io.EOF {
 			break
@@ -39,7 +40,7 @@ func main() {
 			fmt.Println(err)
 			break
 		}
-		handle.Write(end)
+		handle.Write(end[:])
 
 	}
 
