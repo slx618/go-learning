@@ -27,8 +27,6 @@ func main() {
 	var end [128]byte
 	handle.Write(header[:])
 	handle.Write([]byte{'b'})
-	//跳过第一个字节
-	h.Seek(1, 0)
 	for {
 		n, err := h.Read(end[:])
 
@@ -45,9 +43,6 @@ func main() {
 	}
 	handle.Close()
 	h.Close()
-	err = os.Remove("./main.txt")
-	fmt.Println(err)
 	err = os.Rename("./new.txt", "./main.txt")
-	fmt.Println(err)
 
 }
