@@ -19,8 +19,7 @@ func NewLogger(path string) *logger {
 	if path != "" {
 		handle, err = os.OpenFile(path, os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0644)
 		if err != nil {
-			fmt.Println(err)
-			panic("日志文件创建失败:") //程序崩溃退出
+			panic("日志文件创建失败:" + fmt.Sprintf("%v", err)) //程序崩溃退出
 		}
 		direct = false
 	}
