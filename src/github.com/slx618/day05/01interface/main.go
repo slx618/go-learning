@@ -2,9 +2,6 @@ package main
 
 import "fmt"
 
-//接口是一种类型
-//约束了变量有那些方法
-
 type cat struct {
 }
 
@@ -14,6 +11,8 @@ type dog struct {
 type person struct {
 }
 
+//接口是一种类型
+//约束了变量有那些方法
 //只要实现了 speak 方法 都是 speaker 类型
 //一个变量如果实现了接口中所有的方法 那么这个变量就实现了这个接口
 type speaker interface {
