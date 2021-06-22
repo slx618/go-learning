@@ -30,16 +30,17 @@ func main() {
 	//跳过第一个字节
 	h.Seek(1, 0)
 	for {
-		_, err := h.Read(end[:])
+		n, err := h.Read(end[:])
 
 		if err == io.EOF {
+			handle.Write(end[:n])
 			break
 		}
 		if err != nil {
 			fmt.Println(err)
 			break
 		}
-		handle.Write(end[:])
+		handle.Write(end[:n])
 
 	}
 	handle.Close()
