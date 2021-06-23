@@ -11,7 +11,7 @@ func main() {
 	a2 := a1
 
 	//var a3 = make([]int, 0, 3) //长度为0 复制不进去
-	var a3 = make([]int, 2, 3)
+	var a3 = make([]int, 0, 3)
 	copy(a3, a1)
 
 	fmt.Println(a1, a2, a3)
