@@ -49,10 +49,12 @@ func copyFile(target string) {
 
 }
 
+var log logger.Log
+
 func main() {
 	//copyFile("./main.go")
 
-	log := logger.NewLogger("xx.log", "info")
+	log = logger.NewLogger("xx.log", "info")
 	for i := 1; i < 10000; i++ {
 		log.Debug("ssss")
 

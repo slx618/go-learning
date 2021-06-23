@@ -29,6 +29,15 @@ type logger struct {
 	maxFileSize int64
 }
 
+type Log interface {
+	Debug(string, ...interface{})
+	Trace(string, ...interface{})
+	Info(string, ...interface{})
+	Warming(string, ...interface{})
+	Error(string, ...interface{})
+	Close()
+}
+
 func parseLog(s string) (logLevel LogLevel, err error) {
 	switch strings.ToLower(s) {
 	case "debug":
