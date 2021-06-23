@@ -118,7 +118,7 @@ func NewLogger(path string, level string) *logger {
 }
 
 func (l *logger) Close() {
-	fmt.Println("进来关掉了文件")
+	//fmt.Println("进来关掉了文件")
 	l.handle.Close()
 }
 
@@ -141,7 +141,7 @@ func (l *logger) doPrint(s string, logLevel LogLevel) {
 }
 
 func init() {
-	fmt.Println("init")
+	//fmt.Println("init")
 }
 
 func (l *logger) Debug(s string, a ...interface{}) {
