@@ -60,7 +60,7 @@ func (l logger) Trace(s interface{}) {
 	l.doPrint(content)
 }
 
-func (l logger) Error(s interface{}) {
+func (l logger) Fatal(s interface{}) {
 	var str = fmt.Sprintf("%#v", s)
 	content := "[ERROR]" + str
 	l.doPrint(content)
