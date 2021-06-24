@@ -9,8 +9,8 @@ type cat struct {
 }
 
 func reflectType(a interface{}) {
-	ty := reflect.TypeOf(a)
-	v := reflect.ValueOf(a)
+	ty := reflect.TypeOf(a) //动态类型
+	v := reflect.ValueOf(a) //动态值
 
 	fmt.Println(ty.Kind(), ty.Name(), v.Kind(), v, ty)
 }
