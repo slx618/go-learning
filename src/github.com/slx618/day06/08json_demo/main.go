@@ -19,6 +19,7 @@ func main() {
 
 	str := `{"name":"xxx", "age":12}`
 
+	//引用传递 p 才能被赋值
 	_ = json.Unmarshal([]byte(str), &p)
 	fmt.Println(p)
 
