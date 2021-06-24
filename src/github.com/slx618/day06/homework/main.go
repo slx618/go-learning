@@ -109,8 +109,8 @@ func loadIni(s interface{}) (err error) {
 			var tagName string
 			for i := 0; i < v1.NumField(); i++ {
 				fmt.Println(t1.Field(i).Tag.Get("ini"))
-				if t1.Field(i).Tag.Get("ini") == key {
-					tagName = t1.Field(i).Name
+				if t1.Field(i).Tag.Get("ini") == key { // 这里比较的是 tag上 和配置文件上的key
+					tagName = t1.Field(i).Name //这里那的是 结构体里的key
 					break
 				}
 			}
