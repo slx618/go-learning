@@ -6,26 +6,29 @@ import (
 	"io"
 	"os"
 	"reflect"
+	"strconv"
 	"strings"
 )
 
-type mysqlConfig struct {
+type MysqlConfig struct {
 	Addr     string `ini:"addr"`
-	Port     string `ini:"port"`
+	Port     int    `ini:"port"`
 	Username string `ini:"username"`
 	Password string `ini:"password"`
+	IsTest   bool   `ini:"isTest"`
 }
 
-type redisConfig struct {
-	Host     string `ini:"host"`
-	Port     int    `ini:"port"`
-	Password string `ini:"password"`
-	Database int    `ini:"database"`
+type RedisConfig struct {
+	Host     string  `ini:"host"`
+	Port     int     `ini:"port"`
+	Password string  `ini:"password"`
+	Database int     `ini:"database"`
+	Timeout  float64 `ini:"timeout"`
 }
 
-type config struct {
-	mysqlConfig `ini:"mysql"`
-	redisConfig `ini:"redis"`
+type Config struct {
+	MysqlConfig `ini:"mysql"`
+	RedisConfig `ini:"redis"`
 }
 
 func loadIni(s interface{}) (err error) {
@@ -41,30 +44,7 @@ func loadIni(s interface{}) (err error) {
 		return
 	}
 
-	//读取
-	fd, err := os.Open("./src/github.com/slx618/day06/homework/conf.ini")
-	if err != nil {
-		return
-	}
-	fdStat, _ := fd.Stat()
-	var str [128]byte
-	var content = make([]byte, 0, fdStat.Size())
-	for {
-		n, err := fd.Read(str[:])
-		if err == io.EOF {
-			//content = append(content, str[:n]...)
-			break
-		}
-		if err != nil {
-			fmt.Println(err)
-			break
-		}
-		content = append(content, str[:n]...)
-	}
-	fd.Close()
-
-	//用\n切割字符串
-	strArr := strings.Split(string(content), "\n")
+	strArr, err := readFile()
 
 	var structName string
 	for idx, v := range strArr {
@@ -83,9 +63,11 @@ func loadIni(s interface{}) (err error) {
 		if strings.HasPrefix(v, "[") {
 			// [   ] 为空的情况
 			if len(strings.TrimSpace(v[1:len(v)-1])) == 0 {
-				err = fmt.Errorf("第%d行配置文件语法错误", idx + 1)
+				err = fmt.Errorf("第%d行配置文件语法错误", idx+1)
 				return
 			}
+
+			//section: mysql redis
 			sectionName := strings.TrimSpace(v[1 : len(v)-1])
 
 			for i := 0; i < rt.Elem().NumField(); i++ {
@@ -101,36 +83,57 @@ func loadIni(s interface{}) (err error) {
 		} else {
 			//切割等号的配置
 			if strings.Index(v, "=") <= 0 {
-				err = fmt.Errorf("第%d行配置文件语法错误", idx +1)
+				err = fmt.Errorf("第%d行配置文件语法错误", idx+1)
 				return
 			}
 
 			sp := strings.Split(v, "=")
 			if len(sp) < 1 { //切割成功
-				err = fmt.Errorf("第%d行配置文件语法错误", idx + 1)
+				err = fmt.Errorf("第%d行配置文件语法错误", idx+1)
 			}
-			strings.TrimSpace(sp[0])
-			strings.TrimSpace(sp[1])
-			//eqIdx := strings.Index(v, "=")
-			//key := strings.T
+			key := strings.TrimSpace(v[0:strings.Index(v, "=")])
+			value := strings.TrimSpace(v[strings.Index(v, "=")+1:])
 
 			rv := reflect.ValueOf(s)
-
 			v1 := rv.Elem().FieldByName(structName)
 			if v1.Kind() != reflect.Struct {
 				err = fmt.Errorf("%s不是一个结构体", structName)
 				return
-
 			}
-			t1, ok := rt.FieldByName(structName)
-			if !ok {
-				err = fmt.Errorf("%s不是一个结构体", structName)
-				return
+			t1 := v1.Type()
+			/**
+			  field.tag -> addr
+			  field.tag -> port
+				...
+			*/
+			var tagName string
+			for i := 0; i < v1.NumField(); i++ {
+				fmt.Println(t1.Field(i).Tag.Get("ini"))
+				if t1.Field(i).Tag.Get("ini") == key {
+					tagName = t1.Field(i).Name
+					break
+				}
 			}
-			t1.
+			if tagName == "" {
+				continue
+			}
+			vField := v1.FieldByName(tagName)
+			switch vField.Type().Kind() {
+			case reflect.String:
+				vField.SetString(value)
+			case reflect.Int, reflect.Int8, reflect.Int16, reflect.Int32, reflect.Int64:
+				vInt, _ := strconv.ParseInt(value, 10, 64)
+				vField.SetInt(vInt)
+			case reflect.Bool:
+				vBool, _ := strconv.ParseBool(value)
+				vField.SetBool(vBool)
+			case reflect.Float32, reflect.Float64:
+				vFloat, _ := strconv.ParseFloat(value, 64)
+				vField.SetFloat(vFloat)
+			}
 
-//strconv.ParseInt()
-//			v2 := v1.Elem().FieldByName(toUpCase(sp[0]))
+			//strconv.ParseInt()
+			//			v2 := v1.Elem().FieldByName(toUpCase(sp[0]))
 			//v2.Set(reflect.ValueOf(v))
 
 			//fmt.Println(configMap)
@@ -149,15 +152,35 @@ func loadIni(s interface{}) (err error) {
 	return
 }
 
-func toUpCase(s string) string {
-	strArr := strings.Split(s, "")
-	sp := strArr[:]
-	sp[0] = strings.ToUpper(sp[0])
-	return strings.Join(sp[:], "")
+func readFile() ([]string, error) {
+	//读取
+	fd, err := os.Open("./src/github.com/slx618/day06/homework/conf.ini")
+	if err != nil {
+		return nil, err
+	}
+	fdStat, _ := fd.Stat()
+	var str [128]byte
+	var content = make([]byte, 0, fdStat.Size())
+	for {
+		n, err := fd.Read(str[:])
+		if err == io.EOF {
+			//content = append(content, str[:n]...)
+			break
+		}
+		if err != nil {
+			fmt.Println(err)
+			break
+		}
+		content = append(content, str[:n]...)
+	}
+	err = fd.Close()
+
+	//用\n切割字符串
+	return strings.Split(string(content), "\n"), nil
 }
 
 func main() {
-	var config config
+	var config Config
 	//var redisIni redisConfig
 	err := loadIni(&config)
 	if err != nil {
