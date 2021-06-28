@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"math/rand"
+	"sync"
 	"time"
 )
 
@@ -17,13 +18,20 @@ func f() {
 
 }
 func f1(i int) {
+	defer wg.Done()
+	rand.Seed(time.Now().UnixNano())
 	time.Sleep(time.Millisecond * time.Duration(rand.Intn(10)))
 	fmt.Println(i)
 }
+
+var wg sync.WaitGroup
+
 func main() {
 	//f()
-
+	//wg.Add(10)
 	for i := 1; i < 10; i++ {
-		go f1()
+		wg.Add(1)
+		go f1(i)
 	}
+	wg.Wait()
 }
