@@ -6,7 +6,7 @@ func main() {
 	ch1 := make(chan int, 2)
 	ch1 <- 10
 	ch1 <- 10
-	close(ch1) //通道关闭可以取值
+	close(ch1) //通道关闭可以取值 不能在写值进去
 	//for rst := range ch1 {
 	//	fmt.Println(rst)
 	//}
