@@ -22,13 +22,12 @@ const (
 )
 
 type logger struct {
-	level        LogLevel
-	direct       bool
-	targetFile   string
-	handle       *os.File
-	maxFileSize  int64
-	content      *chan string
-	contentCount int
+	level       LogLevel
+	direct      bool
+	targetFile  string
+	handle      *os.File
+	maxFileSize int64
+	content     *chan string
 }
 
 type Log interface {
@@ -139,13 +138,12 @@ func NewLogger(path string, level string) *logger {
 
 	content := make(chan string, 100000)
 	return &logger{
-		level:        pLevel,
-		direct:       direct,
-		targetFile:   path,
-		handle:       handle,
-		maxFileSize:  2 * 1024 * 1024,
-		content:      &content,
-		contentCount: 0,
+		level:       pLevel,
+		direct:      direct,
+		targetFile:  path,
+		handle:      handle,
+		maxFileSize: 2 * 1024 * 1024,
+		content:     &content,
 	}
 
 }
