@@ -2,7 +2,6 @@ package main
 
 import (
 	"fmt"
-	"math/rand"
 	"time"
 )
 
@@ -23,4 +22,7 @@ func main() {
 			fmt.Println("hhh")
 		}
 	}
+
+	//空 select 会一直阻塞
+	//select {}
 }

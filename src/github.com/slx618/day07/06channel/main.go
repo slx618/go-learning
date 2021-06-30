@@ -31,7 +31,7 @@ func f2(ch1 <-chan int, ch2 chan<- int) {
 		ch2 <- x * x
 	}
 	once.Do(func() {
-		close(ch2)
+		close(ch2) //通道只能关闭一次
 	})
 }
 
@@ -48,6 +48,7 @@ func main() {
 	go f2(ch1, ch2)
 	wg.Wait()
 
+	//close(ch2) 也可以在这里关闭
 	for rst := range ch2 {
 		fmt.Println(rst)
 	}
