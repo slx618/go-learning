@@ -33,7 +33,8 @@ func buffChannel() {
 	fmt.Println(ch1)
 	ch1 = make(chan int, 1)
 	ch1 <- 10
-	//ch1 <- 20 卡死
+	// ch <- 10 再存也是阻塞
+	//ch1 <- 20 再取就阻塞
 	close(ch1)
 }
 

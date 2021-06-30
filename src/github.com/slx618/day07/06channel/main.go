@@ -25,7 +25,7 @@ func f2(ch1 <-chan int, ch2 chan<- int) {
 	defer wg.Done()
 	for {
 		x, ok := <-ch1
-		if !ok {
+		if !ok { //什么时候会不 ok? 通道被关闭了 并且值被取完
 			break
 		}
 		ch2 <- x * x
