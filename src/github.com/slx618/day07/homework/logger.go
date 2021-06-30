@@ -27,7 +27,16 @@ type logger struct {
 	targetFile  string
 	handle      *os.File
 	maxFileSize int64
-	content     *chan string
+	content     chan *logMsg
+}
+
+type logMsg struct {
+	line       int
+	fileName   string
+	funcName   string
+	timesStamp string
+	msg        string
+	level      LogLevel
 }
 
 type Log interface {
@@ -54,6 +63,25 @@ func parseLog(s string) (logLevel LogLevel, err error) {
 	default:
 		err = errors.New("不存在的日志等级")
 		logLevel = UNKNOWN
+	}
+	return
+}
+
+func parseLogLevel(le LogLevel) (logLevel string, err error) {
+	switch le {
+	case DEBUG:
+		logLevel = "DEBUG"
+	case TRACE:
+		logLevel = "TRACE"
+	case INFO:
+		logLevel = "INFO"
+	case WARMING:
+		logLevel = "WARMING"
+	case ERROR:
+		logLevel = "ERROR"
+	default:
+		err = errors.New("不存在的日志等级")
+		logLevel = "UNKNOWN"
 	}
 	return
 }
@@ -102,16 +130,11 @@ func (l *logger) rotateFile() {
 	}
 }
 
-func (l *logger) writeFile(content string) {
-	*l.content <- content
-	if len(*l.content) > 500 {
+func (l *logger) writeFile() {
+	if len(l.content) > 500 {
 		var begin = 1
 		for {
-			s, ok := <-*l.content
-			if !ok {
-				break
-			}
-			l.handle.WriteString(s)
+			l.handle.WriteString(l.formartLogStr())
 			begin++
 			if begin == 500 {
 				break
@@ -136,14 +159,14 @@ func NewLogger(path string, level string) *logger {
 		panic("日志文件创建失败:" + fmt.Sprintf("%v", err)) //程序崩溃退出
 	}
 
-	content := make(chan string, 100000)
+	content := make(chan *logMsg, 50000)
 	return &logger{
 		level:       pLevel,
 		direct:      direct,
 		targetFile:  path,
 		handle:      handle,
 		maxFileSize: 2 * 1024 * 1024,
-		content:     &content,
+		content:     content,
 	}
 
 }
@@ -157,18 +180,37 @@ func (l *logger) doPrint(s string, logLevel LogLevel) {
 	if l.level < logLevel {
 		return
 	}
+	funcName, fileName, line := getInfo(3)
+
+	msg := logMsg{
+		line:     line,
+		fileName: fileName,
+		funcName: funcName,
+		//Mon Jan 2 15:04:05 -0700 MST 2006
+		timesStamp: time.Now().Format("2006-06-02 15:04:05.0000"),
+		msg:        s,
+		level:      DEBUG,
+	}
+
+	select {
+	case l.content <- &msg:
+	default:
+	}
+
 	//检查文件大小 做切割
 	l.rotateFile()
 
-	funName, fileName, line := getInfo(3)
-	//Mon Jan 2 15:04:05 -0700 MST 2006
-	formatStr := fmt.Sprintf("[%s][%s:%s:%d]", time.Now().Format("2006-06-02 15:04:05.0000"), fileName, funName, line)
-	s = formatStr + s + "\n"
 	if l.direct == true {
-		fmt.Fprintln(os.Stdout, s)
+		fmt.Fprintln(os.Stdout, l.formartLogStr())
 	} else {
-		go l.writeFile(s)
+		go l.writeFile()
 	}
+}
+
+func (l *logger) formartLogStr() string {
+	logMsg := <-l.content
+	return fmt.Sprintf("[%s][%s:%s.%s:%d][%s]%s\n", logMsg.timesStamp, logMsg.fileName, logMsg.funcName,
+		logMsg.funcName, logMsg.line, logMsg.level, logMsg.msg)
 }
 
 func init() {
@@ -177,34 +219,29 @@ func init() {
 
 func (l *logger) Debug(s string, a ...interface{}) {
 	var str = fmt.Sprintf(s, a...)
-	content := "[DEBUG]" + str
-	l.doPrint(content, DEBUG)
+	l.doPrint(str, DEBUG)
 
 }
 
 func (l *logger) Trace(s string, a ...interface{}) {
 	var str = fmt.Sprintf(s, a...)
-	content := "[TRACE]" + str
-	l.doPrint(content, TRACE)
+	l.doPrint(str, TRACE)
 }
 
 func (l *logger) Info(s string, a ...interface{}) {
 	var str = fmt.Sprintf(s, a...)
-	content := "[INFO]" + str
-	l.doPrint(content, INFO)
+	l.doPrint(str, INFO)
 
 }
 
 func (l *logger) Warming(s string, a ...interface{}) {
 	var str = fmt.Sprintf(s, a...)
-	content := "[WARMING]" + str
-	l.doPrint(content, WARMING)
+	l.doPrint(str, WARMING)
 
 }
 
 func (l *logger) Error(s string, a ...interface{}) {
 	var str = fmt.Sprintf(s, a...)
-	content := "[ERROR]" + str
-	l.doPrint(content, ERROR)
+	l.doPrint(str, ERROR)
 
 }
