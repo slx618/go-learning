@@ -28,7 +28,7 @@ func main() {
 			fmt.Println(string(data[:n]))
 			revData := strings.ToUpper(string(data[:n]))
 			//发送数据
-			_, err := conn.WriteToUDP([]byte(revData), addr)
+			_, err = conn.WriteToUDP([]byte(revData), addr)
 			if err != nil {
 				fmt.Println(err)
 				break
