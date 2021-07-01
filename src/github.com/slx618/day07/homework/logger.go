@@ -67,7 +67,7 @@ func parseLog(s string) (logLevel LogLevel, err error) {
 	return
 }
 
-func parseLogLevel(le LogLevel) (logLevel string, err error) {
+func parseLogLevel(le LogLevel) (logLevel string) {
 	switch le {
 	case DEBUG:
 		logLevel = "DEBUG"
@@ -80,7 +80,6 @@ func parseLogLevel(le LogLevel) (logLevel string, err error) {
 	case ERROR:
 		logLevel = "ERROR"
 	default:
-		err = errors.New("不存在的日志等级")
 		logLevel = "UNKNOWN"
 	}
 	return
@@ -131,16 +130,7 @@ func (l *logger) rotateFile() {
 }
 
 func (l *logger) writeFile() {
-	if len(l.content) > 500 {
-		var begin = 1
-		for {
-			l.handle.WriteString(l.formartLogStr())
-			begin++
-			if begin == 500 {
-				break
-			}
-		}
-	}
+	l.handle.WriteString(l.formartLogStr())
 }
 
 func NewLogger(path string, level string) *logger {
@@ -208,9 +198,21 @@ func (l *logger) doPrint(s string, logLevel LogLevel) {
 }
 
 func (l *logger) formartLogStr() string {
-	logMsg := <-l.content
-	return fmt.Sprintf("[%s][%s:%s.%s:%d][%s]%s\n", logMsg.timesStamp, logMsg.fileName, logMsg.funcName,
-		logMsg.funcName, logMsg.line, logMsg.level, logMsg.msg)
+	run := 1
+	for {
+
+		select {
+		case logMsg := <-l.content:
+			return fmt.Sprintf("[%s][%s:%s.%s:%d][%s]%s\n", logMsg.timesStamp, logMsg.fileName, logMsg.funcName,
+				logMsg.funcName, logMsg.line, parseLogLevel(logMsg.level), logMsg.msg)
+		default:
+			if run == 10000 {
+				break
+			}
+			time.Sleep(time.Millisecond * 500)
+		}
+		run++
+	}
 }
 
 func init() {
