@@ -6,6 +6,7 @@ import (
 	"encoding/binary"
 )
 
+//沾包解决
 func Encode(msg string) ([]byte, error) {
 	//获取消息体的长度 转换成int32
 	var length = int32(len(msg))
