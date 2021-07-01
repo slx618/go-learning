@@ -1,8 +1,10 @@
 package main
 
 import (
+	"bufio"
 	"fmt"
 	"net"
+	"os"
 )
 
 func main() {
@@ -12,9 +14,23 @@ func main() {
 		fmt.Println("建立连接失败", err)
 	}
 	//2. 发生数据
-	_, err = conn.Write([]byte("hello world"))
-	if err != nil {
-		fmt.Println("发生数据失败", err)
+	var msg string
+	//if len(os.Args) < 2 {
+	//	msg = "hello world"
+	//} else {
+	//	msg = os.Args[1]
+	//}
+	reader := bufio.NewReader(os.Stdin)
+	for {
+		//fmt.Scan(&msg)
+		msg, _ = reader.ReadString('\n')
+		if msg == "exit" {
+			break
+		}
+		_, err = conn.Write([]byte(msg))
+		if err != nil {
+			fmt.Println("发生数据失败", err)
+		}
 	}
 	conn.Close()
 }
