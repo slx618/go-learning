@@ -7,6 +7,11 @@ import (
 
 var x = 0
 
+var (
+	wg   sync.WaitGroup
+	lock sync.Mutex
+)
+
 func add() {
 	defer wg.Done()
 	for i := 0; i < 5000; i++ {
@@ -15,9 +20,6 @@ func add() {
 		lock.Unlock()
 	}
 }
-
-var wg sync.WaitGroup
-var lock sync.Mutex
 
 func main() {
 	wg.Add(2)

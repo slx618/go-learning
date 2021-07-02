@@ -17,6 +17,7 @@ func main() {
 	}
 	// 2. 等待别人来跟我建立连接
 	for {
+		//未连接的时候在这阻塞
 		conn, err := listener.Accept()
 		if err != nil {
 			fmt.Println("建立连接失败", err)
