@@ -15,9 +15,11 @@ func main() {
 	urlObj, _ := url.Parse("http://127.0.0.1:9090/x")
 	urlObj.RawQuery = u.Encode()
 
-	req, _ := http.NewRequest(http.MethodGet, "http://127.0.0.1:9090/x?"+u.Encode(), nil)
+	req, _ := http.NewRequest(http.MethodGet, urlObj.String(), nil)
+	rsp, err := http.DefaultClient.Do(req)
 
-	rsp, err := http.Get(urlObj.String())
+	//rsp, err := http.Get("http://127.0.0.1:9090/x")
+
 	if err != nil {
 		fmt.Println(err)
 
