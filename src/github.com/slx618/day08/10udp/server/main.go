@@ -4,7 +4,10 @@ import (
 	"fmt"
 	"net"
 	"strings"
+	"sync"
 )
+
+var wg sync.WaitGroup
 
 func main() {
 	conn, err := net.ListenUDP("udp", &net.UDPAddr{
@@ -18,7 +21,9 @@ func main() {
 	defer conn.Close()
 	// 不需要建立链接
 	var data [1024]byte
+	wg.Add(1)
 	go func() {
+		defer wg.Done()
 		for {
 			n, addr, err := conn.ReadFromUDP(data[:])
 			if err != nil {
@@ -35,5 +40,5 @@ func main() {
 			}
 		}
 	}()
-
+	wg.Wait()
 }

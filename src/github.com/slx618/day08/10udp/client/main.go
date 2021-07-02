@@ -29,6 +29,6 @@ func main() {
 			fmt.Println(err)
 			break
 		}
-		fmt.Println("client收到", string(rev[:n]))
+		fmt.Println("从 server收到", string(rev[:n]))
 	}
 }
