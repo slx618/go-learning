@@ -24,6 +24,8 @@ func main() {
 		fmt.Println(err)
 
 	}
+	req.Body.Close()
+
 	data, _ := ioutil.ReadAll(rsp.Body)
 	fmt.Println(string(data))
 }
