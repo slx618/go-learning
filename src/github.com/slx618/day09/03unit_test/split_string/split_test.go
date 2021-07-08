@@ -6,6 +6,15 @@ import (
 	"testing"
 )
 
+func TestMain(m *testing.M) {
+	//在单元测试的开始最先运行
+	fmt.Println("start...")
+	m.Run()
+	//在单元测试的结束后运行
+	fmt.Println("end...")
+
+}
+
 func TestSplit(t *testing.T) {
 	got := Split("aaaa", "a")
 	want := []string{"", "", "", "", ""}
@@ -58,7 +67,7 @@ func TestSplit5(t *testing.T) {
 		want []string
 	}
 
-	//单独运行某个 go test -v -run="TestSplit/a"
+	//单独运行某个 go test -v -run="TestSplit5/a"
 	//测试覆盖率 go test -cover
 	//测试覆盖率输出文件 go test -cover -coverprofile=1.out
 	//html查看覆盖率 go tool cover -html=1.out

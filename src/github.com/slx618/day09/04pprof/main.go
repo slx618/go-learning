@@ -30,9 +30,9 @@ func main() {
 	flag.Parse() //这行又忘了 麻痹
 
 	//go tool pprof cpu.pprof
-	// top3
-	// list funcName
-	//web
+	// top3 前三个耗时的函数
+	// list funcName 列出具体函数哪一行耗时
+	// web
 	if isCPUPprof {
 		f1, _ := os.Create("./cpu.pprof")
 		pprof.StartCPUProfile(f1)
