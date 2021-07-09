@@ -41,4 +41,14 @@ func main() {
 	}
 
 	fmt.Printf("%#v\n", u)
+
+	sql = `SELECT id,username FROM user`
+	var uList = make([]user, 0, 10) //长度 容量
+	err = db.Select(&uList, sql)
+	if err != nil {
+		fmt.Println(err)
+	}
+
+	fmt.Printf("%#v\n", uList)
+
 }
