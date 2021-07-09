@@ -1,12 +1,12 @@
 package main
 
-// go get -u github.com/jmoiron/sqlx
-
 import (
 	"fmt"
 	_ "github.com/go-sql-driver/mysql"
 	"github.com/jmoiron/sqlx"
 )
+
+//sql 注入
 
 var db *sqlx.DB //连接池
 
@@ -30,26 +30,25 @@ func initDb() (err error) {
 	return err
 }
 
-func main() {
-	_ = initDb()
+func sqlInject(name string) {
+	sql := fmt.Sprintf(`SELECT * FROM user WHERE username="%s"`, name)
 
-	var u user
-	sql := `SELECT id,username FROM user WHERE id=?`
-	err := db.Get(&u, sql, 2)
+	fmt.Printf("sql: %s", sql)
+
+	u := make([]user, 0, 10)
+	err := db.Select(&u, sql)
 	if err != nil {
 		fmt.Println(err)
-	}
-
-	fmt.Printf("%#v\n", u)
-
-	sql = `SELECT id,username FROM user`
-	var uList = make([]user, 0, 10) //长度 容量
-	err = db.Select(&uList, sql)
-	if err != nil {
-		fmt.Println(err)
+		fmt.Println("ssss")
 		return
 	}
 
-	fmt.Printf("%#v\n", uList)
+	fmt.Println("%#v", u)
+}
 
+func main() {
+	_ = initDb()
+
+	//注入示例
+	sqlInject("slx")
 }
