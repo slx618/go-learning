@@ -33,7 +33,7 @@ func initDb() (err error) {
 func sqlInject(name string) {
 	sql := fmt.Sprintf(`SELECT * FROM user WHERE username="%s"`, name)
 
-	fmt.Printf("sql: %s", sql)
+	fmt.Printf("sql: %s\n", sql)
 
 	u := make([]user, 0, 10)
 	err := db.Select(&u, sql)
@@ -43,12 +43,14 @@ func sqlInject(name string) {
 		return
 	}
 
-	fmt.Println("%#v", u)
+	fmt.Printf("%#v", u)
 }
 
 func main() {
 	_ = initDb()
 
 	//注入示例
-	sqlInject("slx")
+	sqlInject("xxx\" OR 1=1 limit 1 #")
+	sqlInject("xxx\" AND  (SELECT count(*) FROM user WHERE id < 10) #")
+	sqlInject("xxx\" UNION  (SELECT * FROM user) #")
 }
