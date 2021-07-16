@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"math/rand"
 	"time"
 )
 
@@ -11,6 +12,7 @@ var ch chan int
 
 func main() {
 	ch = make(chan int, 10)
+	rand.Seed(time.Now().UnixNano())
 	for {
 		rand.Int()
 		select {
