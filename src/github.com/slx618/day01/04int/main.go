@@ -28,11 +28,12 @@ func main() {
 
 	//八进制
 	var i2 = 0777
-	fmt.Printf("%d\n", i2)
+	fmt.Printf("%o\n", i2)
+	fmt.Printf("%T\n", i2)
 
 	//十六进制
 	i3 := 0xff
-	fmt.Printf("%d\n", i3)
+	fmt.Printf("%x\n", i3)
 	//查看变量的类型
 	fmt.Printf("%T\n", i3)
 

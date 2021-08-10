@@ -49,6 +49,9 @@ const (
 
 )
 
+const iot1 = iota
+const iot2 = iota
+
 //定义数量级
 const (
 	_  = iota
@@ -62,6 +65,8 @@ const (
 func main() {
 
 	//pi = 23232
+	fmt.Println(iot1)
+	fmt.Println(iot2)
 
 	fmt.Println(a1, a2, a3)
 	fmt.Println(b1, b2, b3)

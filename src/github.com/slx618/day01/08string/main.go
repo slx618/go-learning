@@ -8,7 +8,7 @@ import (
 //字符串
 //s := "字符串"
 
-//字符
+//字符 单独的字母 汉字 符号 是一个字符
 // c1 := 'h'
 // c1 := '1'
 // c1 := '字'
@@ -39,7 +39,7 @@ func main() {
 	make := "煮水"
 	ss := name + make
 	fmt.Println(ss)
-	ss1 := fmt.Sprintf(ss)
+	ss1 := fmt.Sprintf("%s泡茶", ss)
 	fmt.Println(ss1)
 
 	s4 := "/Users/slx618/github/go-movies/src/github.com/slx618/day01/08string"
