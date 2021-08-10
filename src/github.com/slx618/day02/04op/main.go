@@ -58,11 +58,11 @@ func main() {
 	fmt.Println(5 ^ 2)
 
 	// << 将二进制为左移指定位数
-	fmt.Println(5 << 1)  // 1010 => 10
+	fmt.Println(5 << 1)  // 101 => 1010 => 10
 	fmt.Println(1 << 10) // 10000000000
 	// >> 将二进制为右移指定位数
-	fmt.Println(5 >> 1) // 10 => 2
-	fmt.Println(5 >> 2) // 1 => 1
+	fmt.Println(5 >> 1) // 101 => 10 => 2
+	fmt.Println(5 >> 2) // 101 => 1 => 1
 	fmt.Println(5 >> 3) // 0
 
 	var m = int8(1)

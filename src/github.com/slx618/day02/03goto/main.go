@@ -30,8 +30,9 @@ BreakTag:
 		}
 
 	}
+	fmt.Println("break done")
 
-ContinueTag: //跳过外层的循环用的
+ContinueTag: //跳过外层的循环用的 continue 用这个标签其实是没有效果的
 	for i := 1; i < 10; i++ {
 		for j := 1; j < 10; j++ {
 			if i == 5 {

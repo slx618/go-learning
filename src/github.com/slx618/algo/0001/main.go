@@ -25,7 +25,6 @@ func isSubsequence(s string, t string) bool {
 	var rst bool
 	var idx int
 	for k, tc := range t {
-	continueTag:
 		for _, sc := range s {
 			if sc == tc { //有相同的字符
 				if k < idx { //
@@ -34,7 +33,7 @@ func isSubsequence(s string, t string) bool {
 				} else {
 					idx = k
 					rst = true
-					continue continueTag
+					continue
 				}
 			}
 			fmt.Println(sc, tc)
