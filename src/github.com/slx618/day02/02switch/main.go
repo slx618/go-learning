@@ -27,7 +27,7 @@ func main() {
 		fmt.Println(a)
 		fallthrough
 	case a == "b":
-		fmt.Println(b)
+		fmt.Println(a)
 	default:
 		fmt.Println("...")
 	}
