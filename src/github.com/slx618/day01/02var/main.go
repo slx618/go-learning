@@ -20,7 +20,7 @@ func main() {
 	isOk = true
 
 	//局部变量声明后必须使用
-	//var heiheieh string
+	//var heiheihei string
 
 	fmt.Printf("name: %s, age: %d, isOk: %v", name, age, isOk)
 
@@ -42,5 +42,6 @@ func main() {
 	// 匿名变量 (哑元变量) _
 
 	// 变量不能重复声明
+	//var s1
 
 }
