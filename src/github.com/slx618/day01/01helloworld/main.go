@@ -11,6 +11,7 @@ import "fmt"
 //CGO_ENABLED=0 GOOS=windows GOARCH=amd64
 //go build -o xxx 输出文件
 //go install 先编译再移动文件
+//go build 是以 src 开始取找文件的
 func main() {
 	fmt.Println("hello world")
 }
