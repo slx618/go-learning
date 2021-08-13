@@ -2,6 +2,7 @@ package main
 
 import "fmt"
 
+//类型断言
 func assign(a interface{}) {
 	if str, ok := a.(string); !ok {
 		fmt.Println(ok)
@@ -24,6 +25,6 @@ func assign2(a interface{}) {
 }
 
 func main() {
-	//assign(100)
+	assign(100)
 	assign2("sds")
 }
