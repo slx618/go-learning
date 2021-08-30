@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<a href="/addBook">添加</a>
+    <table>
+        <tr>
+            <td>Id</td>
+            <td>bookName</td>
+            <td>price</td>
+            <td>action</td>
+        </tr>
+        {{range .data}}
+            <tr>
+                <td>{{.Id}}</td>
+                <td>{{.BookName}}</td>
+                <td>{{.Price}}</td>
+                <td><a href="/delBook?id={{.Id}}">删除</a></td>
+            </tr>
+        {{end}}
+    </table>
+</body>
+</html>
