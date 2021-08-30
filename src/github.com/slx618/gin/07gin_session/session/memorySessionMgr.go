@@ -2,6 +2,7 @@ package session
 
 import (
 	"errors"
+	"github.com/go-redis/redis/v8"
 	uuid "github.com/satori/go.uuid"
 	"sync"
 )
