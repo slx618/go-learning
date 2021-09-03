@@ -82,7 +82,7 @@ func (r *RdsSession) Save() (err error) {
 	}
 	ctx, cancel := context.WithTimeout(context.Background(), time.Second*5)
 	defer cancel()
-	_ := r.pool.Set(ctx, r.SessionId, data, redis.KeepTTL).Err()
+	_ = r.pool.Set(ctx, r.SessionId, data, redis.KeepTTL).Err()
 	r.flag = SessionFlagNone
 	return nil
 }
@@ -91,7 +91,7 @@ func (r RdsSession) loadFromRedis() (err error) {
 	ctx, canncel := context.WithTimeout(context.Background(), time.Second*5)
 	defer canncel()
 	data, _ := r.pool.Get(ctx, r.SessionId).Result()
-	_ := json.Unmarshal([]byte(data), &r.Data)
+	_ = json.Unmarshal([]byte(data), &r.Data)
 
 	return
 }

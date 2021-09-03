@@ -3,6 +3,7 @@ package main
 import (
 	"encoding/json"
 	"github.com/gin-gonic/gin"
+	"github.com/slx618/gin/05gin_middelware/mid"
 	"github.com/slx618/gin/06gin_cookie/middleware"
 	"log"
 )
@@ -11,7 +12,7 @@ func main() {
 
 	r := gin.Default()
 
-	r.Use(middleware.Auth())
+	r.Use(middleware.Auth(), mid.M2())
 	{
 		r.GET("/login", func(c *gin.Context) {
 			var login middleware.Login
