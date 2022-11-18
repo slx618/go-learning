@@ -19,23 +19,27 @@ func main() {
 xx:
 	fmt.Println("done")
 
-BreakTag:
+	
+	BreakTag: // 跳出整个 双层循环
 	for i := 1; i < 10; i++ {
 		for j := 1; j < 10; j++ {
 			if i == 5 {
 				break BreakTag
 			} else {
-				//fmt.Printf("%d->%d\n", i, j)
+				// fmt.Printf("%d->%d\n", i, j)
 			}
 		}
 
 	}
+
+
+
 	fmt.Println("break done")
 
-ContinueTag: //跳过外层的循环用的 continue 用这个标签其实是没有效果的
+	ContinueTag: //可以跳出整个循环 即跳到改标签所定义的行数上
 	for i := 1; i < 10; i++ {
 		for j := 1; j < 10; j++ {
-			if i == 5 {
+			if j == 5 {
 				continue ContinueTag
 			} else {
 				fmt.Printf("%d->%d\n", i, j)

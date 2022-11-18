@@ -55,6 +55,6 @@ func main() {
 	fmt.Println(strings.LastIndex(s4, "g")) //最后一次出现的地方
 
 	fmt.Println(strings.Join(rst, "+"))
-	fmt.Println(strings.Replace(s4, "/", "+", 2))
+	fmt.Println(strings.Replace(s4, "/", "+", -1))
 
 }
