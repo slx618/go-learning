@@ -2,7 +2,7 @@ package main
 
 import (
 	"github.com/gin-gonic/gin"
-	"github.com/slx618/gin/05gin_middleware/mid"
+	"github.com/slx618/go-learning/src/gin/05gin_middleware/mid"
 	"log"
 )
 
